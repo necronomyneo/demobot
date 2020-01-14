@@ -3,10 +3,13 @@ from telebot import types  # кнопки
 from string import Template
 import time, datetime
 from datetime import timedelta
-
 from datetime import date
+from flask import Flask, request
+import os
+TOKEN = "1068710368:AAFNslgSITL0rxf3U0B53mwD2aK8Hf0c3Z8"
+server = Flask(__name__)
 
-bot = telebot.TeleBot("1037961560:AAEaXbn6a2MwsaH3avwadlvfvBwEFSVMSM8")
+bot = telebot.TeleBot(TOKEN)
 
 all_users_dict = {"Toshkent": "", "Buxoro": ""}
 
@@ -1242,5 +1245,15 @@ bot.enable_save_next_step_handlers(delay=2)
 # WARNING It will work only if enable_save_next_step_handlers was called!
 bot.load_next_step_handlers()
 
-if __name__ == '__main__':
-    bot.polling(none_stop=True)
+@server.route('/' + TOKEN, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://appdtest.herokuapp.com/' + TOKEN)
+    return "!", 200
+
+if __name__ == "__main__":
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
