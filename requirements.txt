@@ -26,5 +26,5 @@ six==1.13.0
 somepackage==1.2.3
 telegram==0.0.1
 tornado==6.0.3
-urllib3==1.25.7
+urllib3==1.26.5
 Werkzeug==0.16.0
