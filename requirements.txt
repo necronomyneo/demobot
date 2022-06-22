@@ -14,7 +14,7 @@ itsdangerous==1.1.0
 Jinja2==2.10.3
 jsmin==2.2.2
 MarkupSafe==1.1.1
-numpy==1.17.4
+numpy==1.22.0
 pycparser==2.19
 PyQt5==5.13.2
 PyQt5-sip==12.7.0
